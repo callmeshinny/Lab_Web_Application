@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nguyen Le Nhu Ngoc – Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fffafc; --ink:#332a30; --muted:#786d73; --primary:#7a4d5e; --primary-600:#6f4556;
+      --card:#ffffff; --border:#e6dfe3; --accent:#f0e6eb; --star:#f3c623;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
+
+    /* Navbar */
+    .nav{position:sticky;top:0;z-index:50;background:rgba(255,250,252,.85);backdrop-filter:saturate(1.2) blur(6px);border-bottom:1px solid var(--border)}
+    .nav .wrap{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:12px 18px}
+    .brand{font-family:"DM Serif Display",serif;font-size:22px}
+    .nav a{color:var(--ink);text-decoration:none;font-weight:600;padding:8px 12px;border-radius:10px}
+    .nav a:hover,.nav a.active{background:var(--accent)}
+    .spacer{flex:1}
+    .cta{background:var(--primary);color:#fff;border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer}
+
+    /* Hero */
+    .hero{max-width:1100px;margin:28px auto 0;display:grid;grid-template-columns:360px 1fr;gap:26px;padding:0 18px 18px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 24px rgba(122,77,94,.08)}
+    .profile{padding:22px;text-align:center}
+    .avatar{width:240px;height:240px;border-radius:50%;object-fit:cover;border:10px solid #f6eef2;box-shadow:0 6px 16px rgba(122,77,94,.15)}
+    .profile h1{margin:12px 0 4px;font-family:"DM Serif Display",serif}
+    .profile .role{color:var(--muted);letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+    .profile .links a{font-weight:600;color:#e89ab2;text-decoration:none;transition:color .3s ease, text-shadow .3s ease;}
+    .profile .links a:hover{color:#ff70a6;text-shadow:0 0 6px rgba(255,112,166,.4);}
+
+    .about{padding:26px}
+    .pill{display:inline-block;background:var(--primary);color:#fff;padding:8px 12px;border-radius:12px;font-weight:700;letter-spacing:.3px;margin-bottom:12px}
+    .about p{max-width:70ch}
+
+    /* Section generic */
+    section{max-width:1100px;margin:22px auto;padding:0 18px}
+    h2{font-size:22px;margin:8px 0 14px}
+
+    /* Skills */
+    .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .skill{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
+    .skill .row{display:flex;justify-content:space-between;align-items:center}
+    .stars{display:flex;gap:6px}
+    .star{font-size:20px;color:#ccc}
+    .filled{color:var(--star)}
+    .tags{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
+    .tag{background:var(--accent);border:1px solid var(--border);padding:6px 10px;border-radius:999px;font-size:13px;font-weight:600}
+
+    /* Projects */
+    .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .proj{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+    .proj img{width:100%;height:160px;object-fit:cover}
+    .proj .content{padding:14px}
+    .proj h3{margin:0 0 6px;font-size:18px}
+    .meta{color:var(--muted);font-size:14px}
+    .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+    .chip{background:#f1e6eb;border:1px solid var(--border);padding:4px 8px;border-radius:999px;font-size:12px;font-weight:600}
+    .proj .actions{display:flex;gap:10px;margin-top:12px}
+    .btn{padding:8px 10px;border-radius:10px;border:1px solid var(--border);background:#fff;font-weight:700;text-decoration:none;color:var(--primary-600)}
+    .btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+    /* Contact */
+    .contact{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    form{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px}
+    label{display:block;margin:10px 0 6px;font-weight:600}
+    input,textarea{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:12px;font:inherit}
+    textarea{min-height:120px}
+    .send{margin-top:10px}
+
+    footer{max-width:1100px;margin:30px auto 40px;padding:0 18px;color:var(--muted)}
+
+    @media (max-width:1000px){
+      .hero{grid-template-columns:1fr}
+      .projects{grid-template-columns:repeat(2,1fr)}
+      .skills{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="wrap">
+      <div class="brand">Nguyen Le Nhu Ngoc</div>
+      <a href="#about" class="active">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <div class="spacer"></div>
+      <a class="cta" href="#contact">Contact me</a>
+    </div>
+  </nav>
+
+  <!-- HERO / ABOUT -->
+  <div class="hero">
+    <div class="card profile">
+      <img class="avatar" src="./img/IMG_5219 2.JPG" alt="Profile"/>
+      <h1>Nhu Ngoc</h1>
+      <div class="role">Business Analysis • 3rd Year Student</div>
+      <div class="links">
+        <a href="mailto:nhungoc230805@gmail.com">Email</a>
+        <span>·</span>
+        <a href="tel:0903230805">Phone</a>
+      </div>
+    </div>
+    <div id="about" class="card about">
+      <span class="pill">About</span>
+      <h2>Hello! I'm Nguyen Le Nhu Ngoc 👋</h2>
+      <ul class="about-list">
+        <li>Motivated and fast‑learning student majoring in Information Systems, transitioning into <strong>Business Analysis</strong>.</li>
+        <li>Enjoy turning data into insights and building smooth processes between users and engineering.</li>
+        <li>Recently achieved a <strong>GPA 3.9/4.0</strong> and a <strong>Merit Scholarship</strong>.</li>
+        <li>Eager to contribute to digital transformation projects—from requirements discovery and documentation to evaluating solutions with measurable impact.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <span class="pill">Skills</span>
+    <h2>What I work with</h2>
+    <div class="skills">
+      <div class="skill">
+        <div class="row"><strong>Data Analysis</strong><div class="stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span></div></div>
+        <div class="tags">
+          <span class="tag">Excel</span><span class="tag">Power BI</span><span class="tag">Google Sheets</span>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="row"><strong>Programming</strong><div class="stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span></div></div>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Java</span><span class="tag">C++</span>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="row"><strong>BA Toolkit</strong><div class="stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span></div></div>
+        <div class="tags">
+          <span class="tag">User Stories</span><span class="tag">Wireframing</span><span class="tag">Process Mapping</span>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="row"><strong>Soft Skills</strong><div class="stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span></div></div>
+        <div class="tags">
+          <span class="tag">Communication</span><span class="tag">Teamwork</span><span class="tag">Fast Learning</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <span class="pill">Projects</span>
+    <h2>Things I’ve built or contributed to</h2>
+    <div class="projects">
+      <article class="proj">
+      <img src="./img/nngoc.png" alt="TryOnMe cover"/>
+        <div class="content">
+          <h3>TryOnMe - Project Management</h3>
+          <div class="meta">Student project · Project management, report with good</div>
+          <div class="chips"><span class="chip">Power BI</span><span class="chip">Excel</span><span class="chip">Data Viz</span></div>
+          <div class="actions">
+            <a class="btn primary" href="#">Live Demo</a>
+            <a class="btn" href="#">Case Notes</a>
+          </div>
+        </div>
+      </article>
+      <article class="proj">
+        <img src="https://images.unsplash.com/photo-1552581234-26160f608093?q=80&w=1200&auto=format&fit=crop" alt="App"/>
+        <div class="content">
+          <h3>Requirement Document – Campus App</h3>
+          <div class="meta">Gathered requirements, wrote user stories, and drew process flow</div>
+          <div class="chips"><span class="chip">BA</span><span class="chip">User Stories</span><span class="chip">Flowchart</span></div>
+          <div class="actions">
+            <a class="btn" href="#">View PDF</a>
+            <a class="btn" href="#">Repository</a>
+          </div>
+        </div>
+      </article>
+      <article class="proj">
+        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" alt="Website"/>
+        <div class="content">
+          <h3>Mini Web – Portfolio v1</h3>
+          <div class="meta">Simple responsive website built with semantic HTML/CSS</div>
+          <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">Responsive</span></div>
+          <div class="actions">
+            <a class="btn primary" href="#">Preview</a>
+            <a class="btn" href="#">Source</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <span class="pill">Contact</span>
+    <h2>Let’s work together</h2>
+    <div class="contact">
+      <form onsubmit="sendMail(event)">
+        <label>Name</label>
+        <input id="name" placeholder="Your name" required>
+        <label>Email</label>
+        <input id="email" type="email" placeholder="you@example.com" required>
+        <label>Message</label>
+        <textarea id="message" placeholder="Tell me about your project..." required></textarea>
+        <button class="cta send" type="submit">Send</button>
+      </form>
+      <div class="card" style="padding:18px">
+        <h3>Contact details</h3>
+        <p><strong>Email:</strong> nhungoc230805@gmail.com</p>
+        <p><strong>Phone:</strong> 0903230805</p>
+        <p><strong>Location:</strong> Ho Chi Minh City, Vietnam</p>
+        <p class="muted">I usually reply within 24h.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="y"></span> Nguyen Le Nhu Ngoc — Built with pure HTML & CSS
+  </footer>
+
+  <script>
+    // Active link highlight on scroll
+    const links = document.querySelectorAll('.nav a[href^="#"]');
+    const ids = [...links].map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          links.forEach(l=>l.classList.remove('active'));
+          const a = document.querySelector(`.nav a[href="#${e.target.id}"]`);
+          if(a) a.classList.add('active');
+        }
+      })
+    },{rootMargin:"-40% 0px -55% 0px",threshold:0});
+    ids.forEach(el=>obs.observe(el));
+
+    // Simple mailto from the contact form
+    function sendMail(ev){
+      ev.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('message').value.trim();
+      const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+      const body = encodeURIComponent(`${msg}\n\nReply to: ${email}`);
+      window.location.href = `mailto:nhungoc230805@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

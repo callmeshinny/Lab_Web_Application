@@ -1,0 +1,132 @@
+[
+  {
+    "id": "cable-knit-polo-mustard",
+    "name": "Cable-Knit Polo Sweater (Mustard)",
+    "category": "WOMEN",
+    "image": "assets/img/wa1.jpg",
+    "price": 1599000,
+    "sale_price": 1279000,
+    "colors": [
+      "#e8c04a",
+      "#1f2937"
+    ],
+    "description": "Soft cable-knit polo sweater with mini bear embroidery."
+  },
+  {
+    "id": "cable-knit-zip-cardigan-navy",
+    "name": "Cable-Knit Zip Cardigan (Navy)",
+    "category": "WOMEN",
+    "image": "assets/img/wa2.jpg",
+    "price": 1729000,
+    "sale_price": 1380000,
+    "colors": [
+      "#0b1730",
+      "#9fa6b2"
+    ],
+    "description": "Slim zip cardigan with cable texture and collar."
+  },
+  {
+    "id": "nordic-crew-cream-blue",
+    "name": "Nordic Crew Knit (Cream/Blue)",
+    "category": "WOMEN",
+    "image": "assets/img/wa3.jpg",
+    "price": 1899000,
+    "sale_price": 1519000,
+    "colors": [
+      "#f2efe6",
+      "#88a8c8"
+    ],
+    "description": "Jacquard Nordic pattern, cozy regular fit."
+  },
+  {
+    "id": "fair-isle-cardigan-wine",
+    "name": "Fair Isle Cardigan (Wine)",
+    "category": "WOMEN",
+    "image": "assets/img/wa4.jpg",
+    "price": 1999000,
+    "sale_price": 1599000,
+    "colors": [
+      "#6f1d1b",
+      "#f3e9dc"
+    ],
+    "description": "Buttoned cardigan with classic fair isle yoke."
+  },
+  {
+    "id": "mini-bear-tee-black",
+    "name": "Mini Bear Badge Tee (Black)",
+    "category": "WOMEN",
+    "image": "assets/img/wa5.jpg",
+    "price": 559000,
+    "sale_price": 479000,
+    "colors": [
+      "#111111",
+      "#f3f4f6"
+    ],
+    "description": "Compact-fit tee with signature bear badge."
+  },
+  {
+    "id": "short-sleeve-oxford-yellow",
+    "name": "Short-Sleeve Oxford Shirt (Yellow)",
+    "category": "UNISEX",
+    "image": "assets/img/wa6.jpg",
+    "price": 799000,
+    "sale_price": 679000,
+    "colors": [
+      "#f5d86b",
+      "#1f2937"
+    ],
+    "description": "Lightweight oxford, summer-ready cut."
+  },
+  {
+    "id": "california-lettering-tee-grey",
+    "name": "California Lettering Tee (Grey)",
+    "category": "UNISEX",
+    "image": "assets/img/wa7.jpg",
+    "price": 559000,
+    "sale_price": 479000,
+    "colors": [
+      "#9ca3af",
+      "#7f1d1d"
+    ],
+    "description": "Heritage ATHL. CLUB print in collegiate style."
+  },
+  {
+    "id": "1849-bear-graphic-tee-white",
+    "name": "1849 Bear Graphic Tee (White)",
+    "category": "UNISEX",
+    "image": "assets/img/wa8.jpg",
+    "price": 559000,
+    "sale_price": 479000,
+    "colors": [
+      "#ffffff",
+      "#111827"
+    ],
+    "description": "Signature 1849 print with surfing bear."
+  },
+  {
+    "id": "bear-badge-tee-sage",
+    "name": "Bear Badge Tee (Sage)",
+    "category": "UNISEX",
+    "image": "assets/img/wa9.jpg",
+    "price": 559000,
+    "sale_price": 479000,
+    "colors": [
+      "#7e8f74",
+      "#111827"
+    ],
+    "description": "Pigment-dyed tee with chest badge."
+  },
+  {
+    "id": "oxford-shirt-cream",
+    "name": "Oxford Shirt (Cream)",
+    "category": "UNISEX",
+    "image": "assets/img/wa10.jpg",
+    "price": 999000,
+    "sale_price": 829000,
+    "colors": [
+      "#ece6d7",
+      "#374151"
+    ],
+    "description": "Classic button-down oxford in warm cream tone."
+  }
+]

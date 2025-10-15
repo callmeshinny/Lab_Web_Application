@@ -1,0 +1,43 @@
+/* 7 small images, always in one row */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:#202A44;               /* dark background */
+  display:flex;align-items:center;justify-content:center;
+  overflow-x:hidden;
+}
+
+/* adjust image size here */
+:root{
+  --size: 80px;                    /* ← make smaller if needed: 100 / 90 / 80 */
+  --gap: 12px;
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--gap);
+  flex-wrap:nowrap;                 /* force one row */
+  width:100%;
+  max-width: calc(7 * var(--size) + 6 * var(--gap));  /* exactly fits 7 images */
+}
+
+/* images only for display, scaled by --size */
+.note{
+  width:var(--size);
+  height:auto;
+  display:block;
+  border-radius:10px;
+  cursor:pointer;
+  transition:transform .08s ease, filter .15s ease;
+}
+.note:active,
+.note.playing{
+  transform:scale(.95);
+  filter:drop-shadow(0 0 10px rgba(255,103,195,.6));
+}
+
+/* smaller screens */
+@media (max-width: 720px){ :root{ --size: 95px; } }
+@media (max-width: 520px){ :root{ --size: 80px; } }

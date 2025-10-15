@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shinny's DrumKit</title>
+
+  <style>
+    /* ===== Base layout ===== */
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:#F5EFE6; /* soft beige background */
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    /* ===== Banner ===== */
+    .banner{
+      width:100%;
+      padding:22px 16px 10px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .banner h1{
+      margin:0;
+      color:#708993;                       /* main heading color */
+      font-weight:900;
+      letter-spacing:.02em;
+      font-size:clamp(28px,4.5vw,56px);
+      /* text outline / shadow for visibility */
+      text-shadow:
+        0 1px 0 rgba(0,0,0,.06),
+        0 0 0.8px #5d7581,
+        0 3px 12px rgba(112,137,147,.25);
+    }
+
+    /* ===== Image row ===== */
+    :root{
+      --size: 110px;   /* change this to adjust image size */
+      --gap: 12px;
+    }
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:var(--gap);
+      flex-wrap:nowrap;
+      width:100%;
+      max-width: calc(7 * var(--size) + 6 * var(--gap));
+      margin: 18px auto 40px;
+    }
+
+    /* ===== Image style ===== */
+    .note{
+      width:var(--size);
+      height:auto;
+      display:block;
+      border-radius:12px;
+      cursor:pointer;
+      transition:transform .08s ease, filter .15s ease, box-shadow .15s ease;
+      user-select:none;
+      box-shadow: 0 3px 10px rgba(0,0,0,.06);
+    }
+    .note:active,
+    .note.playing{
+      transform:scale(.97);
+      /* soft blue highlight when pressed */
+      filter: drop-shadow(0 0 10px rgba(96, 160, 220, .55));
+      box-shadow: 0 0 0 10px rgba(96,160,220,.12), 0 10px 26px rgba(0,0,0,.12);
+    }
+
+    /* smaller screens */
+    @media (max-width: 520px){ :root{ --size: 90px; } }
+  </style>
+</head>
+
+<body>
+  <!-- Banner -->
+  <header class="banner">
+    <h1>Shinny's DrumKit</h1>
+  </header>
+
+  <!-- Seven note images -->
+  <div class="row">
+    <img class="note" data-pitch="C4" src="img/do.png" alt="Do (C4)">
+    <img class="note" data-pitch="D4" src="img/re.png" alt="Re (D4)">
+    <img class="note" data-pitch="E4" src="img/mi.png" alt="Mi (E4)">
+    <img class="note" data-pitch="F4" src="img/fa.png" alt="Fa (F4)">
+    <img class="note" data-pitch="G4" src="img/so.png" alt="So (G4)">
+    <img class="note" data-pitch="A4" src="img/la.png" alt="La (A4)">
+    <img class="note" data-pitch="B4" src="img/ti.png" alt="Ti (B4)">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ===== Shinny's DrumKit — play sound on click or key press =====
+    const KEY_TO_PITCH = { w:"C4", a:"D4", s:"E4", d:"F4", j:"G4", k:"A4", l:"B4" };
+    const cache = {};
+    ["C4","D4","E4","F4","G4","A4","B4"].forEach(p=>{
+      const a = new Audio(`sounds/${p}.mp3`);
+      a.preload="auto";
+      cache[p]=a;
+    });
+
+    function play(pitch){
+      const a = cache[pitch];
+      if(!a) return;
+      try{ a.currentTime = 0; }catch{}
+      a.play().catch(()=>{});
+      const img = document.querySelector(`.note[data-pitch="${pitch}"]`);
+      if(img){
+        img.classList.add("playing");
+        clearTimeout(img._t);
+        img._t = setTimeout(()=>img.classList.remove("playing"), 150);
+      }
+    }
+
+    // Click event for each note
+    document.querySelectorAll(".note").forEach(img=>{
+      img.addEventListener("click", ()=> play(img.dataset.pitch));
+      img.addEventListener("dragstart", e=> e.preventDefault());
+    });
+
+    // Keyboard shortcuts (W A S D J K L)
+    window.addEventListener("keydown", e=>{
+      const p = KEY_TO_PITCH[e.key.toLowerCase()];
+      if(p) play(p);
+    });
+
+    // Unlock audio for Safari/iOS
+    document.addEventListener("click", ()=>{}, { once:true });
+  </script>
+</body>
+</html>
