@@ -1,8 +1,15 @@
-# jsx-without-react
+JSX without React — fresh starter
 
-Minimal demo: custom JSX runtime + Todo + Counter (TypeScript + Vite).
+This project demonstrates a tiny custom JSX runtime and a Counter component.
 
-Run:
-1. npm install
-2. npm run dev
-Open http://localhost:5175
+How to run:
+
+1. Install dev deps (if you haven't already):
+
+   npm install
+
+2. Start dev server:
+
+   npm run dev
+
+3. Open http://localhost:5173
