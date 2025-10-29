@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Counter Pop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+      :root{--bg-1:#f6efff;--bg-2:#efe1ff;--accent:#a67bff}
+      html,body{height:100%;margin:0}
+      body{
+        display:flex;align-items:flex-start;justify-content:center;
+        position:relative; /* enable layering */
+        font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      }
+
+      /* place a fixed background layer behind the app so content is never covered */
+      body::before{
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
+        background-attachment: fixed;
+      }
+
+      #root{display:flex;align-items:flex-start;justify-content:center;min-height:100vh;width:100%;position:relative;z-index:1}
+      /* small utility tweaks for focus outlines */
+      button:focus,input:focus{outline:none}
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- no filesystem fallback script — app mounts from /src/main.tsx when served -->
+
+    <!-- Load the module app when served by dev server / production -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
