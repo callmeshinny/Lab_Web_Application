@@ -10,21 +10,21 @@ const Counter = ({ initialCount = 0 }: CounterProps) => {
 
   // 🎨 Box style – giữ nguyên form cũ, chỉ đổi vị trí
   const containerStyle = {
-  // Normal flow card (not absolute/fixed) so it scrolls with the page
+    // normal flow card (not absolute/fixed) so it scrolls with the page
     position: "relative" as const,
     margin: "0 auto 12px",
-    background: "linear-gradient(180deg,#f6ecff,#efe0ff)",
-    padding: "36px 40px",
-    borderRadius: "16px",
-    boxShadow: "0 20px 50px rgba(120,80,160,0.10)",
+    background: "white",
+    padding: "20px 20px",
+    borderRadius: "24px",
+    boxShadow: "0 22px 48px rgba(120,80,160,0.10)",
     textAlign: "center" as const,
   }
 
   const h2Style = {
     margin: 0,
     color: "#3b0b5f",
-    fontWeight: 800,
-    fontSize: '18px',
+    fontWeight: 900,
+    fontSize: '14px',
     letterSpacing: '1px',
   }
 
@@ -60,8 +60,8 @@ const Counter = ({ initialCount = 0 }: CounterProps) => {
     background: '#ffdfe8',
     color: '#a23f88',
     border: 'none',
-    padding: '8px 18px',
-    borderRadius: 12,
+    padding: '6px 14px',
+    borderRadius: 9999,
     fontWeight: 800,
     cursor: 'pointer',
     boxShadow: '0 6px 18px rgba(120,80,160,0.06)'
@@ -69,8 +69,8 @@ const Counter = ({ initialCount = 0 }: CounterProps) => {
 
   return (
     <div style={containerStyle}>
-      <h2 style={h2Style}>COUNTER POP-UP</h2>
-      <p style={countStyle}>Count: {getCount()}</p>
+  <h2 style={h2Style}>{'COUNTER POP-UP'}</h2>
+      <p style={countStyle}>{getCount()}</p>
       <div style={{ ...buttons, alignItems: 'center' }}>
         <button
           style={smallCircle}

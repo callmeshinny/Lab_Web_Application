@@ -1,18 +1,19 @@
 import { defineConfig } from 'vite'
 
-// Vite config tuned for this custom JSX runtime
 export default defineConfig({
+  base: './', 
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    rollupOptions: {
+      input: './index.html',
+    },
+  },
   esbuild: {
-    // Ensure TSX uses our createElement factory
     jsxFactory: 'createElement',
-    jsxFragment: 'createFragment',
+    jsxFragment: 'Fragment',
   },
   server: {
-    port: 5173,
-    open: false,
+    port: 5174,
   },
-  build: {
-    target: 'es2020',
-    sourcemap: true,
-  }
 })

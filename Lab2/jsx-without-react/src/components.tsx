@@ -12,13 +12,15 @@ interface CardProps {
 const Card = ({ title, children, className, onClick }: CardProps) => {
   const cardStyle = {
     background: "white",
-    borderRadius: "16px",
-    padding: "20px 28px",
-    boxShadow: "0 8px 25px rgba(120,80,160,0.08)",
+    borderRadius: "20px",
+    padding: "18px 22px",
+    boxShadow: "0 20px 50px rgba(120,80,160,0.09)",
+    position: 'relative' as const,
+    zIndex: 2,
   }
   return (
     <div className={className} style={cardStyle} onClick={onClick}>
-      {title && <h3 style={{ color: "#6a3ecf", marginBottom: "12px" }}>{title}</h3>}
+      {title && <h3 style={{ color: "#3b0b5f", marginBottom: "12px", fontSize: 16, fontWeight: 900 }}>{title}</h3>}
       <div>{children}</div>
     </div>
   )
@@ -41,8 +43,8 @@ const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
   }
   const box = {
     position: "relative" as const,
-    background: "white", borderRadius: "12px", padding: "24px 32px",
-    width: "400px", boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+    background: "white", borderRadius: "20px", padding: "24px 32px",
+    width: "400px", boxShadow: "0 14px 40px rgba(0,0,0,0.18)",
   }
   const closeStyle = {
     position: "absolute" as const, top: "10px", right: "16px",

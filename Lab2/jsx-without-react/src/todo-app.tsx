@@ -28,15 +28,15 @@ const TodoApp = ({ todos, getTodos, setTodos, filter, setFilter }: TodoAppProps)
     const ta = form.querySelector('textarea') as HTMLTextAreaElement | null
     const raw = getDraft().trim() || (ta ? ta.value.trim() : "")
     if (!raw) return
-  // Split by newlines and add each non-empty line as a separate todo
+    // split by newlines and add each non-empty line as a separate todo
     const lines = raw.split(/\r?\n/).map(s => s.trim()).filter(Boolean)
     if (lines.length === 0) return
     const now = Date.now()
     const newItems: Todo[] = lines.map((l, i) => ({ id: now + i, task: l, done: false }))
-  // Use getTodos() to read freshest state and append
+    // use getTodos() to read freshest state and append
     const current = getTodos()
     setTodos([...current, ...newItems])
-  // Clear draft and textarea DOM value (we keep textarea uncontrolled for stable typing)
+    // clear draft and textarea DOM value (we keep textarea uncontrolled for stable typing)
     setDraft("")
     if (ta) { ta.value = ""; ta.style.height = '' }
   }
@@ -53,12 +53,14 @@ const TodoApp = ({ todos, getTodos, setTodos, filter, setFilter }: TodoAppProps)
 
   const container = {
     background: 'white',
-    borderRadius: '14px',
+    borderRadius: '20px',
     padding: '26px 28px',
-    boxShadow: '0 18px 40px rgba(120,80,160,0.06)',
+    boxShadow: '0 20px 50px rgba(120,80,160,0.08)',
     width: '100%',
-    maxWidth: '420px',
-    fontFamily: 'Poppins, sans-serif',
+    maxWidth: '560px',
+    fontFamily: 'inherit',
+    position: 'relative' as const,
+    zIndex: 2,
   }
 
   const addRow = {
@@ -82,12 +84,12 @@ const TodoApp = ({ todos, getTodos, setTodos, filter, setFilter }: TodoAppProps)
     background: '#8f63ff',
     color: 'white',
     border: 'none',
-    padding: '10px 12px',
-    borderRadius: '12px',
+    padding: '8px 10px',
+    borderRadius: '10px',
     fontWeight: 800,
     cursor: 'pointer',
-    minWidth: 56,
-    height: 44,
+    minWidth: 48,
+    height: 38,
   }
 
   const table = {
@@ -119,17 +121,33 @@ const TodoApp = ({ todos, getTodos, setTodos, filter, setFilter }: TodoAppProps)
 
   return (
     <div style={container}>
-      <div style={{ textAlign: 'center', marginBottom: 14 }}>
-        <h2 style={{ margin: 0, color: '#c94a6a', fontSize: '30px', fontWeight: 900, letterSpacing: '1px' }}>TODO LIST</h2>
+      <div style={{ textAlign: 'center', marginBottom: 16 }}>
+        <h2 style={{ margin: 0, color: '#d94a63', fontSize: '30px', fontWeight: 900, letterSpacing: '2px' }}>TODO LIST</h2>
       </div>
 
-      <form onSubmit={addTodo} style={addRow}>
+      {/* Tabs: All / In Progress / Completed */}
+      <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginBottom: 12 }}>
+        <button
+          style={{ padding: '8px 16px', borderRadius: 9999, border: 'none', cursor: 'pointer', fontWeight: 700, background: filter === 'all' ? '#cdb5ff' : '#f6f0ff', transition: 'all 160ms ease', boxShadow: filter === 'all' ? '0 8px 20px rgba(120,80,160,0.08)' : 'none' }}
+          onClick={() => setFilter('all')}
+        >All</button>
+        <button
+          style={{ padding: '8px 16px', borderRadius: 9999, border: 'none', cursor: 'pointer', fontWeight: 700, background: filter === 'active' ? '#cdb5ff' : '#f6f0ff', transition: 'all 160ms ease', boxShadow: filter === 'active' ? '0 8px 20px rgba(120,80,160,0.08)' : 'none' }}
+          onClick={() => setFilter('active')}
+        >In Progress</button>
+        <button
+          style={{ padding: '8px 16px', borderRadius: 9999, border: 'none', cursor: 'pointer', fontWeight: 700, background: filter === 'completed' ? '#cdb5ff' : '#f6f0ff', transition: 'all 160ms ease', boxShadow: filter === 'completed' ? '0 8px 20px rgba(120,80,160,0.08)' : 'none' }}
+          onClick={() => setFilter('completed')}
+        >Completed</button>
+      </div>
+
+      <form onSubmit={addTodo} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', marginBottom: 8 }}>
         <textarea
-          placeholder="Add a new task... (one per line)"
-          style={{ ...input, resize: 'none', minHeight: 44, maxHeight: 240, padding: '12px 14px', overflow: 'hidden' }}
+          placeholder={'Add a new task... (one per line)'}
+          style={{ ...input, resize: 'none', minHeight: 64, maxHeight: 240, padding: '16px 18px', overflow: 'hidden', borderRadius: 12, border: '2px solid #efe1ff', flex: 1 }}
           onInput={(e: any) => {
             const ta = e.target as HTMLTextAreaElement
-            // Auto grow
+            // auto grow
             ta.style.height = 'auto'
             ta.style.height = ta.scrollHeight + 'px'
             setDraft(ta.value)
@@ -141,7 +159,7 @@ const TodoApp = ({ todos, getTodos, setTodos, filter, setFilter }: TodoAppProps)
               const ta = e.target as HTMLTextAreaElement
               const val = ta.value || ''
               const selStart = ta.selectionStart ?? 0
-              // Find current line boundaries
+              // find current line boundaries
               let lineStart = val.lastIndexOf('\n', Math.max(0, selStart - 1))
               lineStart = lineStart === -1 ? 0 : lineStart + 1
               let lineEnd = val.indexOf('\n', selStart)
@@ -149,16 +167,16 @@ const TodoApp = ({ todos, getTodos, setTodos, filter, setFilter }: TodoAppProps)
               const line = val.slice(lineStart, lineEnd).trim()
               if (!line) return
               const now = Date.now()
-              // Append to freshest todos via getTodos to avoid stale closure
+              // append to freshest todos via getTodos to avoid stale closure
               const current = getTodos()
               setTodos([...current, { id: now, task: line, done: false }])
-              // Remove the submitted line from textarea
+              // remove the submitted line from textarea
               const before = lineStart === 0 ? '' : val.slice(0, lineStart)
               const after = lineEnd < val.length ? val.slice(lineEnd + 1) : ''
               const newVal = (before + (before && after ? '\n' : '') + after).replace(/^\n/, '')
               ta.value = newVal
               setDraft(newVal)
-              // Adjust height
+              // adjust height
               ta.style.height = 'auto'
               ta.style.height = (ta.scrollHeight || 44) + 'px'
             }
@@ -166,7 +184,7 @@ const TodoApp = ({ todos, getTodos, setTodos, filter, setFilter }: TodoAppProps)
           onFocus={(e: any) => (e.target.style.border = '2px solid #8f63ff')}
           onBlur={(e: any) => (e.target.style.border = '2px solid #c8aaff')}
         />
-        <button style={addBtn} type="submit">Add</button>
+  <button style={{ ...addBtn, background: '#7c4dff', borderRadius: 9999, padding: '14px 16px', minWidth: 52, height: 56, alignSelf: 'center', boxShadow: '0 10px 30px rgba(124,77,255,0.12)' }} type="submit">Add</button>
       </form>
 
       
@@ -208,8 +226,8 @@ const TodoApp = ({ todos, getTodos, setTodos, filter, setFilter }: TodoAppProps)
               fontSize: '16px',
               color: isDone ? '#bfa4e6' : '#a67bff',
               padding: '6px 8px',
-              borderRadius: 8,
-              transition: 'color 160ms ease',
+              borderRadius: 9999,
+              transition: 'color 160ms ease, transform 120ms ease',
             }
 
             return (
