@@ -2,6 +2,7 @@
 import { createElement, mount, useState } from "./jsx-runtime"
 import { Counter } from "./counter"
 import { TodoApp } from "./todo-app"
+import { Dashboard } from "./dashboard"
 
 type Filter = 'all' | 'active' | 'completed'
 interface Todo { id: number; task: string; done: boolean }
@@ -78,11 +79,22 @@ const titleStyle = {
 
 const App = () => {
   const [getTodos, setTodos] = useState<Todo[]>([])
+  const [getHistory, setHistory] = useState<{ ts: number; inProgress: number; completed: number }[]>([])
   const [getFilter, setFilter] = useState<Filter>('all')
 
   const todos = getTodos()
   const total = todos.length
   const completed = todos.filter(t => t.done).length
+  const inProgress = total - completed
+
+  // Wrap setTodos so we snapshot counts for dashboard history whenever todos change via this setter
+  const setTodosAndSnapshot = (newTodos: Todo[]) => {
+    setTodos(newTodos)
+    const completedNow = newTodos.filter(t => t.done).length
+    const totalNow = newTodos.length
+    const sample = { ts: Date.now(), inProgress: totalNow - completedNow, completed: completedNow }
+    setHistory([...getHistory(), sample])
+  }
 
   const leftCard = {
     background: 'linear-gradient(180deg,#f3e6ff,#e9d6ff)',
@@ -157,10 +169,12 @@ const App = () => {
 
           {/* CENTER: Todo List */}
           <div style={centerCol}>
-            <TodoApp todos={todos} getTodos={getTodos} setTodos={setTodos} filter={getFilter()} setFilter={setFilter} />
+            <TodoApp todos={todos} getTodos={getTodos} setTodos={setTodosAndSnapshot} filter={getFilter()} setFilter={setFilter} />
           </div>
 
-          <div style={rightCol} />
+          <div style={rightCol}>
+            <Dashboard todos={todos} history={getHistory()} />
+          </div>
         </div>
       </div>
     </div>
