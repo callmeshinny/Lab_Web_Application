@@ -147,7 +147,7 @@ function applyProps(element: Element, oldProps: any, newProps: any) {
   }
 
   // add / update props
-  for (const [k, v] of Object.entries(newProps)) {
+  for (const [k, v] of Object.entries(newProps || {})) {
     if (k === 'children') continue
     if (k === 'style') {
       if (typeof v === 'string') element.setAttribute('style', v)
@@ -169,10 +169,10 @@ function applyProps(element: Element, oldProps: any, newProps: any) {
       if (ev === 'click') {
         // delegated click handler: store a random id on element and central registry
         // remove old delegated id if present
-        removeDelegatedIdIfAny(element)
-  const id: string = Math.random().toString(36).slice(2)
-  (element as HTMLElement).setAttribute('data-click-id', id)
-  __delegatedEvents[id] = ((e: Event, el: HTMLElement) => { try { ;(v as Function)(e, el) } catch {} }) as any
+        removeDelegatedIdIfAny(element);
+        const id: string = Math.random().toString(36).slice(2);
+        (element as HTMLElement).setAttribute('data-click-id', id);
+        __delegatedEvents[id] = ((e: Event, el: HTMLElement) => { try { ;(v as Function)(e, el) } catch {} }) as any
         // store marker in listeners map so removal works
         const listeners = __listeners.get(element) || {}
         listeners['click'] = id
