@@ -152,7 +152,7 @@ function applyProps(element: Element, oldProps: any, newProps: any) {
     if (k === 'style') {
       if (typeof v === 'string') element.setAttribute('style', v)
       else if (typeof v === 'object') {
-        for (const [prop, val] of Object.entries(v)) {
+        for (const [prop, val] of Object.entries(v || {})) {
           ;(element as HTMLElement).style.setProperty(prop.replace(/[A-Z]/g, m => '-' + m.toLowerCase()), String(val))
         }
       }
