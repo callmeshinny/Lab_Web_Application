@@ -9,14 +9,14 @@ export interface VNode {
 }
 export type ComponentFunction = (props: any) => VNode
 
-// runtime state
+// Runtime state
 let __hooks: any[] = []
 let __hookIndex = 0
 let __rootVNode: VNode | null = null
 let __rootContainer: HTMLElement | null = null
 let __oldResolved: VNode | string | number | null = null
 
-// global event delegation registry (click delegation)
+// Global event delegation registry (click delegation)
 const __delegatedEvents: Record<string, (e: Event, el: HTMLElement) => void> = {}
 document.addEventListener("click", (e) => {
   const target = e.target as HTMLElement | null
@@ -48,7 +48,7 @@ export function renderToDOM(vnode: VNode | string | number): Node {
     return frag
   }
   if (typeof (vnode as VNode).type === "function") {
-    // resolve component output before rendering
+    // Resolve component output before rendering
     const rendered = ((vnode as VNode).type as ComponentFunction)({ ...(vnode as VNode).props, children: (vnode as VNode).children || [] })
     const resolved = resolveVNode(rendered)
     return renderToDOM(resolved as any)
@@ -116,7 +116,7 @@ function applyProps(element: Element, oldProps: any, newProps: any) {
   oldProps = oldProps || {}
   newProps = newProps || {}
 
-  // remove props that disappeared
+  // Remove props that disappeared
   for (const k of Object.keys(oldProps)) {
     if (k === 'children') continue
     if (newProps[k] !== undefined) continue
@@ -133,7 +133,7 @@ function applyProps(element: Element, oldProps: any, newProps: any) {
       const ev = k.substring(2).toLowerCase()
       const listeners = __listeners.get(element)
       if (ev === 'click') {
-        // delegated click
+  // Delegated click
         removeDelegatedIdIfAny(element)
       } else {
         if (listeners && listeners[ev]) element.removeEventListener(ev, listeners[ev] as EventListener)
@@ -146,7 +146,7 @@ function applyProps(element: Element, oldProps: any, newProps: any) {
     }
   }
 
-  // add / update props
+  // Add / update props
   for (const [k, v] of Object.entries(newProps || {})) {
     if (k === 'children') continue
     if (k === 'style') {
@@ -167,19 +167,19 @@ function applyProps(element: Element, oldProps: any, newProps: any) {
     else if (k.startsWith('on') && typeof v === 'function') {
       const ev = k.substring(2).toLowerCase()
       if (ev === 'click') {
-        // delegated click handler: store a random id on element and central registry
-        // remove old delegated id if present
-        removeDelegatedIdIfAny(element);
+  // Delegated click handler: store a random id on element and central registry
+  // Remove old delegated id if present
+  removeDelegatedIdIfAny(element);
         const id: string = Math.random().toString(36).slice(2);
         (element as HTMLElement).setAttribute('data-click-id', id);
         __delegatedEvents[id] = ((e: Event, el: HTMLElement) => { try { ;(v as Function)(e, el) } catch {} }) as any
-        // store marker in listeners map so removal works
+  // Store marker in listeners map so removal works
         const listeners = __listeners.get(element) || {}
         listeners['click'] = id
         __listeners.set(element, listeners)
       } else {
         const listeners = __listeners.get(element) || {}
-        // remove previous if different
+  // Remove previous if different
         if (listeners[ev]) element.removeEventListener(ev, listeners[ev] as EventListener)
         element.addEventListener(ev, v as EventListener)
         listeners[ev] = v as EventListener
@@ -190,7 +190,7 @@ function applyProps(element: Element, oldProps: any, newProps: any) {
       try { ;(element as any)[k] = !!v } catch {}
     }
     else if (k === 'value') {
-      // set as property to preserve caret when possible
+  // Set as property to preserve caret when possible
       try { ;(element as any).value = v } catch { element.setAttribute('value', String(v)) }
     }
     else if (v !== false && v != null) {

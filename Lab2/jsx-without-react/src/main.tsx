@@ -13,7 +13,7 @@ const pageStyle = {
   flexDirection: 'column' as const,
   alignItems: 'center',
   justifyContent: 'flex-start',
-  // NOTE: debug border to verify app renders — remove this after confirmation
+  // NOTE: Debug border to verify app renders — remove this after confirmation
   border: '2px solid rgba(255,0,0,0.05)',
   background: 'linear-gradient(180deg,#f6efff,#efe1ff)', // ✅ pastel tím
   fontFamily: 'Poppins, sans-serif',
@@ -22,7 +22,7 @@ const pageStyle = {
   paddingBottom: '60px',
 }
 
-// layout row: left reserved, center todo, right counter
+// Layout row: left reserved, center todo, right counter
 const contentRow = {
   display: 'flex',
   width: '100%',

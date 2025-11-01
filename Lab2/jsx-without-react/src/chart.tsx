@@ -48,7 +48,7 @@ export const Chart = ({ type, data, width = 500, height = 300 }: ChartProps) => 
     )
   }
 
-  // pie
+  // Pie
   const total = data.reduce((s, d) => s + d.value, 0) || 1
   let angle = -Math.PI / 2
   const cx = width / 2

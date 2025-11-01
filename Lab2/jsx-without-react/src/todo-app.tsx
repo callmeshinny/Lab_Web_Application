@@ -28,15 +28,15 @@ const TodoApp = ({ todos, getTodos, setTodos, filter, setFilter }: TodoAppProps)
     const ta = form.querySelector('textarea') as HTMLTextAreaElement | null
     const raw = getDraft().trim() || (ta ? ta.value.trim() : "")
     if (!raw) return
-    // split by newlines and add each non-empty line as a separate todo
+  // Split by newlines and add each non-empty line as a separate todo
     const lines = raw.split(/\r?\n/).map(s => s.trim()).filter(Boolean)
     if (lines.length === 0) return
     const now = Date.now()
     const newItems: Todo[] = lines.map((l, i) => ({ id: now + i, task: l, done: false }))
-    // use getTodos() to read freshest state and append
+  // Use getTodos() to read freshest state and append
     const current = getTodos()
     setTodos([...current, ...newItems])
-    // clear draft and textarea DOM value (we keep textarea uncontrolled for stable typing)
+  // Clear draft and textarea DOM value (we keep textarea uncontrolled for stable typing)
     setDraft("")
     if (ta) { ta.value = ""; ta.style.height = '' }
   }
@@ -129,7 +129,7 @@ const TodoApp = ({ todos, getTodos, setTodos, filter, setFilter }: TodoAppProps)
           style={{ ...input, resize: 'none', minHeight: 44, maxHeight: 240, padding: '12px 14px', overflow: 'hidden' }}
           onInput={(e: any) => {
             const ta = e.target as HTMLTextAreaElement
-            // auto grow
+            // Auto grow
             ta.style.height = 'auto'
             ta.style.height = ta.scrollHeight + 'px'
             setDraft(ta.value)
@@ -141,7 +141,7 @@ const TodoApp = ({ todos, getTodos, setTodos, filter, setFilter }: TodoAppProps)
               const ta = e.target as HTMLTextAreaElement
               const val = ta.value || ''
               const selStart = ta.selectionStart ?? 0
-              // find current line boundaries
+              // Find current line boundaries
               let lineStart = val.lastIndexOf('\n', Math.max(0, selStart - 1))
               lineStart = lineStart === -1 ? 0 : lineStart + 1
               let lineEnd = val.indexOf('\n', selStart)
@@ -149,16 +149,16 @@ const TodoApp = ({ todos, getTodos, setTodos, filter, setFilter }: TodoAppProps)
               const line = val.slice(lineStart, lineEnd).trim()
               if (!line) return
               const now = Date.now()
-              // append to freshest todos via getTodos to avoid stale closure
+              // Append to freshest todos via getTodos to avoid stale closure
               const current = getTodos()
               setTodos([...current, { id: now, task: line, done: false }])
-              // remove the submitted line from textarea
+              // Remove the submitted line from textarea
               const before = lineStart === 0 ? '' : val.slice(0, lineStart)
               const after = lineEnd < val.length ? val.slice(lineEnd + 1) : ''
               const newVal = (before + (before && after ? '\n' : '') + after).replace(/^\n/, '')
               ta.value = newVal
               setDraft(newVal)
-              // adjust height
+              // Adjust height
               ta.style.height = 'auto'
               ta.style.height = (ta.scrollHeight || 44) + 'px'
             }

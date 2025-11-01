@@ -10,7 +10,7 @@ const Counter = ({ initialCount = 0 }: CounterProps) => {
 
   // 🎨 Box style – giữ nguyên form cũ, chỉ đổi vị trí
   const containerStyle = {
-    // normal flow card (not absolute/fixed) so it scrolls with the page
+  // Normal flow card (not absolute/fixed) so it scrolls with the page
     position: "relative" as const,
     margin: "0 auto 12px",
     background: "linear-gradient(180deg,#f6ecff,#efe0ff)",

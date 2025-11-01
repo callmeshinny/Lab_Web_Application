@@ -1,4 +1,4 @@
-// src/data-service.ts
+// Data service
 
 export interface DataPoint {
   label: string
@@ -31,7 +31,7 @@ export class DataService {
     let current = this.generateMockData()
     callback(current)
     setInterval(() => {
-      // tạo biến động nhẹ trên dữ liệu hiện tại
+  // Create a small random variation on the current data
       current = current.map(p => ({
         ...p,
         value: Math.max(5, p.value + (Math.random() * 20 - 10))
