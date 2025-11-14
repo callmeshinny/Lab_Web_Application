@@ -1,16 +1,15 @@
-# Exercise 5
-
 import { useState } from 'react';
 
-// Simple counter component
 function Counter() {
   const [count, setCount] = useState(0);
 
   return (
-    <>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increase</button>
-    </>
+    <div className="counter">
+      <p className="counter-label">Count: {count}</p>
+      <button className="primary-btn" onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
   );
 }
 

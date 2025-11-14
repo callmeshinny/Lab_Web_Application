@@ -1,13 +1,14 @@
-// Exercise 7
-
-// Wrapper component with children
-function Card({ title, children }) {
+function Card({ title, subtitle, children }) {
   return (
-    <div className="card">
-      <h3>{title}</h3>
-      <hr />
-      {children}
-    </div>
+    <section className="card">
+      <header className="card-header">
+        <div>
+          <p className="card-label">{title}</p>
+          {subtitle && <h2 className="card-title">{subtitle}</h2>}
+        </div>
+      </header>
+      <div className="card-body">{children}</div>
+    </section>
   );
 }
 

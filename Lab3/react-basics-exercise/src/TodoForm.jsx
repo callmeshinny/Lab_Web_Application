@@ -1,38 +1,26 @@
 import { useState } from 'react';
 
-// Controlled form to add new todos
-function TodoForm({ addTodo }) {
-  const [text, setText] = useState('');
+function TodoForm({ onSubmit }) {
+  const [value, setValue] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!text.trim()) return;
-    addTodo(text);
-    setText('');
-  };
-
-  const handleKeyDown = (e) => {
-    // Enter without Shift = submit, Shift+Enter = new line
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      if (text.trim()) {
-        addTodo(text);
-        setText('');
-      }
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!value.trim()) return;
+    onSubmit(value);
+    setValue('');
   };
 
   return (
-    <form onSubmit={handleSubmit} className="todo-form">
-      <textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="Add a new task... (one per line)"
-        rows="3"
-        className="todo-input"
+    <form className="todo-form" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Add new task..."
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
       />
-      <button type="submit" className="add-button">Add</button>
+      <button type="submit" className="add-btn">
+        Add
+      </button>
     </form>
   );
 }

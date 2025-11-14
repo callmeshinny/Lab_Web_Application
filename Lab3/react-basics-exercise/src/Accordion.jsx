@@ -1,32 +1,33 @@
-// Exercise 7 – Accordion component (parent)
-
 import { useState } from 'react';
 import Panel from './Panel';
 
-// Parent component controls which panel is active
+const panels = [
+  {
+    title: 'About React',
+    body: 'React is a JavaScript library for building UIs.',
+  },
+  {
+    title: 'About Vite',
+    body: 'Vite is a lightning fast build tool for modern web apps.',
+  },
+];
+
 function Accordion() {
-  const [activeIndex, setActiveIndex] = useState(0); // keep track of open panel
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <>
-      <h2>Accordion Example</h2>
-
-      <Panel
-        title="Panel 1"
-        isActive={activeIndex === 0}
-        onShow={() => setActiveIndex(0)}
-      >
-        This is content of Panel 1.
-      </Panel>
-
-      <Panel
-        title="Panel 2"
-        isActive={activeIndex === 1}
-        onShow={() => setActiveIndex(1)}
-      >
-        This is content of Panel 2.
-      </Panel>
-    </>
+    <div className="accordion">
+      {panels.map((panel, index) => (
+        <Panel
+          key={panel.title}
+          title={panel.title}
+          isActive={activeIndex === index}
+          onShow={() => setActiveIndex(index)}
+        >
+          {panel.body}
+        </Panel>
+      ))}
+    </div>
   );
 }
 

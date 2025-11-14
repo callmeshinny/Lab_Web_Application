@@ -1,22 +1,23 @@
-// Capstone
-
-// Display single todo
-function TodoItem({ todo, toggleTodo, deleteTodo }) {
+function TodoItem({ task, onMove, onDelete }) {
   return (
-    <li className="todo-item">
-      <span className="todo-text">{todo.text}</span>
-      <div className="todo-actions">
-        <input
-          type="checkbox"
-          checked={todo.completed}
-          onChange={() => toggleTodo(todo.id)}
-          className="todo-checkbox"
-        />
-        <button onClick={() => deleteTodo(todo.id)} className="delete-button">
-          🗑️
+    <article className="todo-card">
+      <p>{task.text}</p>
+      <div className="todo-card-actions">
+        {task.status !== 'todo' && (
+          <button className="pill-btn" onClick={() => onMove(task.id, 'backward')}>
+            Back
+          </button>
+        )}
+        {task.status !== 'done' && (
+          <button className="pill-btn primary" onClick={() => onMove(task.id, 'forward')}>
+            {task.status === 'in-progress' ? 'Done' : 'Move'}
+          </button>
+        )}
+        <button className="pill-btn danger" onClick={() => onDelete(task.id)}>
+          Delete
         </button>
       </div>
-    </li>
+    </article>
   );
 }
 
